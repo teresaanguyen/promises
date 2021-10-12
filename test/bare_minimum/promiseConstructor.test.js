@@ -87,7 +87,7 @@ describe('Promise constructor', function() {
       getStatusCodeAsync('https::///thisIsNoUrl.comedy')
         .catch(function(err) {
           expect(err.message).to.satisfy((msg) => {
-            return (msg.includes('Invalid URI') || msg.includes('ECONNREFUSED'));
+            return (msg.includes('Invalid URL') || msg.includes('ECONNREFUSED'));
           }, 'expected the error message to explain that the URL is invalid');
           done();
         });
