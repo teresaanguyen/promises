@@ -18,8 +18,17 @@ var { getGitHubProfileAsync } = require('./promisification');
 var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
   // TODO
   var fetchProfilAndWritePromise = new Promise( (resolve, reject ) => {
-
+    pluckFirstLineFromFileAsync(readFilePath)
+      .then( (user) => {
+        return getGitHubProfileAsync(user);
+      }).then( (profile) => {
+        fs.writeFileSync(writeFilePath, JSON.stringify(profile));
+        resolve();
+      }).catch( (err) => {
+        console.log(err);
+      });
   });
+  return fetchProfilAndWritePromise;
 };
 
 // Export these functions so we can test them
